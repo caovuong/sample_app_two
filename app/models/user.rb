@@ -7,7 +7,7 @@ class User < ApplicationRecord
     format: {with: VALID_EMAIL_REGEX}, uniqueness: true,
     uniqueness: {case_sensitive: false}
   validates :name, presence: true, length: {maximum: 50}
-  validates :password, presence: true, length: {minimum: 6}  
+  validates :password, presence: true, length: {minimum: 6}
   
   has_secure_password
   
@@ -17,6 +17,10 @@ class User < ApplicationRecord
         BCrypt::Engine.cost
       BCrypt::Password.create string, cost: cost
     end
+  end
+
+  def current_user? user
+    self == user
   end
 
   private
