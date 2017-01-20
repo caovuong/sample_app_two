@@ -22,6 +22,7 @@ gem "will_paginate", "3.1.0"
 gem "bootstrap-will_paginate", "0.0.10"
 group :development do
   gem "byebug", platform: :mri
+  gem "letter_opener"
 end
 
 group :development do
