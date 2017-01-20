@@ -39,12 +39,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def feed
+    Micropost.order_time.feed_list following_ids << id
+  end
+
   def destroy
     @user.destroy
     flash[:success] = "User deleted"
     redirect_to users_url
   end
   
+  def following
+    @title = "Following"
+    @user  = User.find_by id: params[:id]
+    @users = @user.following.paginate page: params[:page]
+    render "show_follow"
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find_by id: params[:id]
+    @users = @user.followers.paginate page: params[:page]
+    render "show_follow"
+  end
+
   private
   def find_user
     @user = User.find_by id: params[:id]
